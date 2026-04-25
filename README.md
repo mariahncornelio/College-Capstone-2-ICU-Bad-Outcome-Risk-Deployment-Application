@@ -2,7 +2,7 @@
 
 ---
 
-## 1. Business Problem / Motivation
+## Business Problem / Motivation
 
 Intensive Care Units (ICUs) are high-pressure clinical environments where early identification of patient deterioration can significantly impact outcomes. Delays in recognizing high-risk patients may lead to preventable complications, increased mortality, and inefficient allocation of clinical resources.
 
@@ -12,7 +12,7 @@ The goal is not to replace clinical judgment, but to enhance decision-making thr
 
 ---
 
-## 2. Project Overview
+## Project Overview
 
 This project is a deployed clinical decision support system that predicts ICU mortality risk using structured EHR data from the eICU Collaborative Research Database.
 
@@ -29,13 +29,13 @@ https://college-capstone-2-icu-bad-outcome-risk-deployment-application.streamlit
 
 ---
 
-## 3. Data
+## Data
 
 ### Source
 - eICU Collaborative Research Database  
 https://eicu-crd.mit.edu/
 
-### Notes
+### Important Notes
 Due to licensing restrictions, raw data cannot be shared publicly.
 
 ### Dataset Information
@@ -45,7 +45,7 @@ Due to licensing restrictions, raw data cannot be shared publicly.
 
 ---
 
-## 4. Data Preprocessing
+## Data Preprocessing
 
 The following preprocessing steps were performed:
 
@@ -58,7 +58,7 @@ The following preprocessing steps were performed:
 
 ---
 
-## 5. Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
 Key analyses performed include:
 
@@ -78,7 +78,7 @@ Key analyses performed include:
 
 ---
 
-## 6. Modeling Approach
+## Modeling Approach
 
 ### Baseline Model
 - Logistic Regression (interpretable baseline model)
@@ -98,7 +98,7 @@ Key analyses performed include:
 
 ---
 
-## 7. Model Training
+## Model Training
 
 ### Tools Used
 - Python
@@ -110,21 +110,15 @@ Key analyses performed include:
 - Streamlit
 
 ### Training Pipeline
-- Train-test split
-- Cross-validation
-- Hyperparameter tuning
-- Probability calibration
+- Train-test split (80/20 train-test with OOF)
+- Cross-validation (OOF predictions and stratified K-fold cross validation)
+- Hyperparameter tuning (cost-based threshold tuning 9:1 and F1-balanced threshold tuning)
+- Probability isotonic calibration
 - Final model stacking
 
 ---
 
-## 8. Results
-
-### Evaluation Metrics Used
-- ROC-AUC
-- Precision
-- Recall (Sensitivity)
-- F1 Score
+## Results
 
 ### Baseline Model Classification Report
 | Class / Metric       | Precision | Recall | F1-score | Support / Value |
@@ -160,9 +154,10 @@ This allows clinicians to understand:
 - Why a specific prediction was made
 
 ### SHAP visualizations:
-**SHAP waterfall plot (individual patient)**
-
+**SHAP waterfall plot (individual patient example)**
+<img width="1460" height="917" alt="image" src="https://github.com/user-attachments/assets/6e8633b4-fb1c-4df4-863c-e2e130134495" />
 **Global feature importance plot**
+<img width="1460" height="1018" alt="image" src="https://github.com/user-attachments/assets/de09d2cc-4521-4ff3-b293-054d8ac4e2bc" />
 
 ---
 
@@ -179,11 +174,13 @@ The evaluation module includes:
   - Ethnicity
   - ICU type
 
-📸 Insert evaluation screenshots:
-- ROC curve
-- Confusion matrix
+### Evaluation:
+- ROC curve for global model: 0.976
+- Brier score for global model: 0.066
+- Confusion matrices
+<img width="1320" height="710" alt="Screenshot 2026-04-25 at 2 28 19 PM" src="https://github.com/user-attachments/assets/a74a0390-5f9f-4a25-ab0c-d8ce0831c24d" />
 - Calibration plot
-- Distribution plot
+<img width="1134" height="908" alt="image" src="https://github.com/user-attachments/assets/a1641f66-ec5c-445f-ab21-a4ee0e87c582" />
 
 ---
 
